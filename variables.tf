@@ -54,6 +54,7 @@ variable "aks_subnet_prefix_a" {
 variable "aks_nodepool_subnet_prefix_a" {
   description = "Address prefix for AKS additional node pool subnet in region A"
   type        = list(string)
+  default     = ["10.0.16.0/24"]
 }
 
 
