@@ -191,7 +191,7 @@ resource "azurerm_mssql_firewall_rule" "sql_server_a_azure_services" {
 
 # Firewall rule to allow traffic from AKS subnet (Service Endpoint)
 # This is preferred over public IP firewall rules for secure connectivity
-resource "azurerm_virtual_network_rule" "sql_vnet_rule_a" {
+resource "azurerm_mssql_virtual_network_rule" "sql_vnet_rule_a" {
   name                = "${var.project_prefix}-sql-vnet-rule-a"
   server_id           = azurerm_mssql_server.sql_server_a.id
   subnet_id           = azurerm_subnet.aks_subnet_a.id
@@ -240,7 +240,7 @@ resource "azurerm_lb_rule" "http_lb_rule_a" {
   frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "LoadBalancerFrontend"
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.backend_pool_a.id
+  backend_address_pool_ids        = [azurerm_lb_backend_address_pool.backend_pool_a.id]
   probe_id                       = azurerm_lb_probe.http_probe_a.id
   disable_outbound_snat          = true # Recommended for AKS with NAT Gateway
 }
